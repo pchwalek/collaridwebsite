@@ -151,6 +151,20 @@
             height: auto;
             display: block;
         }
+        
+        /* FFT Image Styling for Better Visibility */
+        .fft-image {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .fft-image img {
+            filter: brightness(1.1) contrast(1.1);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
     </style>
 </head>
 <body class="scroll-smooth">
@@ -161,8 +175,8 @@
             <div class="hidden md:flex gap-8">
                 <a href="#mission" class="hover:text-blue-400 transition-colors">Mission</a>
                 <a href="#hardware" class="hover:text-blue-400 transition-colors">Hardware</a>
+                <a href="#acoustics" class="hover:text-blue-400 transition-colors">Acoustics</a>
                 <a href="#status" class="hover:text-blue-400 transition-colors">Status</a>
-                <a href="#dashboard" class="hover:text-blue-400 transition-colors">Dashboard</a>
                 <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
             </div>
             <button class="md:hidden" id="mobile-menu-btn">
@@ -174,7 +188,7 @@
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <video autoplay muted loop playsinline class="hero-video">
-            <source src="media/collarid/collarid_exploded_compressed.mp4" type="video/mp4">
+            <source src="https://www.patrickchwalek.com/media/collarid/collarid_exploded_compressed.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/80"></div>
         <div class="relative z-10 text-center px-6 max-w-5xl mx-auto fade-in">
@@ -305,14 +319,14 @@
                 <div class="fade-in">
                     <div class="video-container">
                         <video autoplay muted loop playsinline>
-                            <source src="media/collarid/collarid_exploded_compressed.mp4" type="video/mp4">
+                            <source src="https://www.patrickchwalek.com/media/collarid/collarid_exploded_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
                 <div class="fade-in">
                     <h3 class="text-3xl font-bold mb-6">Mechanical Housing</h3>
                     <p class="text-gray-400 leading-relaxed mb-6">
-                        Designed for extreme durability. Validated using Finite Element Analysis (FEA) against the <span class="text-blue-400 font-semibold">1,768 N bite force</span> of a lion.
+                        Designed for extreme durability. Validated using Finite Element Analysis (FEA) against the <span class="text-blue-400 font-semibold">bite force</span> of a lion.
                     </p>
                     <div class="glass rounded-xl p-6 mb-6">
                         <div class="flex items-center gap-4 mb-4">
@@ -331,7 +345,7 @@
                     <i data-lucide="zap" class="w-12 h-12 text-yellow-400 mb-6"></i>
                     <h3 class="text-2xl font-bold mb-4">Power Autonomy</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        Integrated <span class="text-white font-semibold">154 mW solar harvesting</span> paired with an intelligent hibernation protocol for multi-year deployments.
+                        Integrated <span class="text-white font-semibold">solar harvesting</span> paired with an intelligent hibernation protocol for multi-year deployments.
                     </p>
                 </div>
 
@@ -357,19 +371,105 @@
                 <h3 class="text-3xl font-bold mb-8 text-center">Finite Element Analysis</h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="video-container">
-                        <video controls muted playsinline loop>
-                            <source src="media/collarid/top_mid_bite_2.mp4" type="video/mp4">
+                        <video id="feaVideo1" autoplay muted playsinline loop>
+                            <source src="https://www.patrickchwalek.com/media/collarid/top_mid_bite_2.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="video-container">
-                        <video controls muted playsinline loop>
-                            <source src="media/collarid/lateral_mid_bite.mp4" type="video/mp4">
+                        <video id="feaVideo2" autoplay muted playsinline loop>
+                            <source src="https://www.patrickchwalek.com/media/collarid/lateral_mid_bite.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
                 <p class="text-center text-gray-400 mt-6 max-w-3xl mx-auto">
                     FEA simulations validate structural integrity against extreme forces, ensuring the device can withstand the physical demands of tracking wild animals like lions and hyenas.
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Acoustic Recordings Section -->
+    <section id="acoustics" class="section-padding bg-gradient-to-b from-black via-gray-900 to-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Acoustic Recordings</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    The CollarID system includes high-quality microphones that capture environmental sounds and vocalizations. Below are example recordings from field deployments with their frequency spectrum (STFT) visualizations.
+                </p>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Cow Mooing and Bird Chirping -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6">Cow Mooing and Bird Chirping</h3>
+                    <div class="glass rounded-2xl p-6 mb-4">
+                        <div class="fft-image mb-4">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cowmooing_birdchirping_fft.png" alt="STFT spectrogram of cow mooing and bird chirping" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                        </div>
+                        <audio controls class="w-full max-w-4xl mx-auto">
+                            <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cowmooing_birdchirping.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Cow Bawling -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6">Cow Bawling</h3>
+                    <div class="glass rounded-2xl p-6 mb-4">
+                        <div class="fft-image mb-4">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_bawling_fft.png" alt="STFT spectrogram of cow bawling" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                        </div>
+                        <audio controls class="w-full max-w-4xl mx-auto">
+                            <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_bawling.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Cow Walking -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6">Cow Walking</h3>
+                    <div class="glass rounded-2xl p-6 mb-4">
+                        <div class="fft-image mb-4">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_walking_fft.png" alt="STFT spectrogram of cow walking" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                        </div>
+                        <audio controls class="w-full max-w-4xl mx-auto">
+                            <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_walking.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- All-Terrain Vehicle -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6">All-Terrain Vehicle</h3>
+                    <div class="glass rounded-2xl p-6 mb-4">
+                        <div class="fft-image mb-4">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_allterrainvehicle_fft.png" alt="STFT spectrogram of all-terrain vehicle" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                        </div>
+                        <audio controls class="w-full max-w-4xl mx-auto">
+                            <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_allterrainvehicle.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Plane -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold mb-6">Plane</h3>
+                    <div class="glass rounded-2xl p-6 mb-4">
+                        <div class="fft-image mb-4">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_plane_fft.png" alt="STFT spectrogram of plane" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                        </div>
+                        <audio controls class="w-full max-w-4xl mx-auto">
+                            <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_plane.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -382,7 +482,7 @@
                     <span class="gradient-text">The Mk II Frontier</span>
                 </h2>
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Evaluating the Mk II for 2026 field deployments
+                    Active deployments across wild and domestic species
                 </p>
             </div>
 
@@ -390,33 +490,51 @@
                 <div class="mb-8">
                     <h3 class="text-3xl font-bold mb-6">Current Project Scope</h3>
                     <p class="text-lg text-gray-300 leading-relaxed mb-8">
-                        We are currently in the final stages of evaluating the CollarID Mk II design. This version optimizes the multi-modal sensor suite and prepares the platform for large-scale field deployments.
+                        We are currently active in deploying CollarIDs for <span class="text-white font-semibold">wild lions and hyenas</span>, as well as <span class="text-white font-semibold">domestic dogs</span>. The CollarID Mk II platform continues to be optimized for large-scale field deployments across diverse species and environments.
                     </p>
                 </div>
 
                 <div class="space-y-6">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0 glow">
-                            <i data-lucide="check" class="w-6 h-6 text-white"></i>
+                            <i data-lucide="activity" class="w-6 h-6 text-white"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Now: Performance Characterization</h4>
+                            <h4 class="text-xl font-bold mb-2">Active Deployments</h4>
                             <p class="text-gray-400">
-                                Comprehensive validation and optimization of sensor accuracy, power efficiency, and communication reliability.
+                                Currently deploying CollarID systems on <span class="text-white font-semibold">wild lions and hyenas</span> in conservation settings, as well as <span class="text-white font-semibold">domestic dogs</span> for research and monitoring applications.
                             </p>
                         </div>
                     </div>
 
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 glow">
-                            <i data-lucide="calendar" class="w-6 h-6 text-white"></i>
+                            <i data-lucide="zap" class="w-6 h-6 text-white"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Early 2026: Field Deployments</h4>
+                            <h4 class="text-xl font-bold mb-2">Ongoing Optimization</h4>
                             <p class="text-gray-400">
-                                Deployments with the <span class="text-white font-semibold">Modisa Wildlife Project</span> and <span class="text-white font-semibold">National Geographic Explorers</span> to investigate behavioral drivers in target species like lions and hyenas.
+                                Continuous refinement of sensor accuracy, power efficiency, and communication reliability based on real-world deployment data and field feedback.
                             </p>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goat Deployment Video -->
+            <div class="mt-16 fade-in">
+                <h3 class="text-3xl font-bold mb-6 text-center">Goat Deployment - Chile</h3>
+                <div class="video-container">
+                    <video id="goatVideo" autoplay muted playsinline loop>
+                        <source src="https://www.patrickchwalek.com/media/collarid/buena_cabra_1440p.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="mt-8 grid md:grid-cols-2 gap-6">
+                    <div class="glass rounded-2xl overflow-hidden fade-in">
+                        <img src="https://www.patrickchwalek.com/media/collarid/goat_1.jpg" alt="CollarID deployment on goat" class="w-full h-auto">
+                    </div>
+                    <div class="glass rounded-2xl overflow-hidden fade-in">
+                        <img src="https://www.patrickchwalek.com/media/collarid/goat_2.jpg" alt="CollarID deployment on goat" class="w-full h-auto">
                     </div>
                 </div>
             </div>
@@ -424,55 +542,17 @@
             <!-- Deployment Images -->
             <div class="mt-16 grid md:grid-cols-2 gap-8">
                 <div class="glass rounded-2xl overflow-hidden fade-in">
-                    <img src="media/collarid/collarid_buena_cabra_deployment.png" alt="CollarID deployment on goats" class="w-full h-auto">
+                    <img src="https://www.patrickchwalek.com/media/collarid/collarid_buena_cabra_deployment.png" alt="CollarID deployment on goats" class="w-full h-auto">
                     <div class="p-6">
                         <h4 class="text-xl font-bold mb-2">Goat Deployment - Chile</h4>
                         <p class="text-gray-400">Field testing in diverse environments</p>
                     </div>
                 </div>
                 <div class="glass rounded-2xl overflow-hidden fade-in">
-                    <img src="media/collarid/mayra.jpg" alt="CollarID deployment on cattle" class="w-full h-auto">
+                    <img src="https://www.patrickchwalek.com/media/collarid/mayra.jpg" alt="CollarID deployment on cattle" class="w-full h-auto">
                     <div class="p-6">
                         <h4 class="text-xl font-bold mb-2">Cattle Deployment</h4>
                         <p class="text-gray-400">Real-world validation of sensor performance</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dashboard Section -->
-    <section id="dashboard" class="section-padding bg-black">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-5xl md:text-6xl font-bold mb-6">
-                    <span class="gradient-text">Real-Time Data Visualization</span>
-                </h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Interactive dashboard for monitoring GPS tracks, sensor data, and environmental metrics
-                </p>
-            </div>
-
-            <div class="dashboard-placeholder fade-in">
-                <div class="relative z-10 text-center">
-                    <i data-lucide="layout-dashboard" class="w-24 h-24 mx-auto mb-6 text-blue-400"></i>
-                    <h3 class="text-3xl font-bold mb-4">CollarID Web Dashboard</h3>
-                    <p class="text-gray-400 text-lg mb-6 max-w-2xl mx-auto">
-                        Interactive maps, battery status, and time-series plots for environmental sensors like PM2.5 and temperature.
-                    </p>
-                    <div class="flex flex-wrap justify-center gap-4 mt-8">
-                        <div class="glass rounded-lg px-6 py-3">
-                            <i data-lucide="map" class="w-6 h-6 inline-block mr-2 text-blue-400"></i>
-                            <span>GPS Tracking</span>
-                        </div>
-                        <div class="glass rounded-lg px-6 py-3">
-                            <i data-lucide="activity" class="w-6 h-6 inline-block mr-2 text-green-400"></i>
-                            <span>Sensor Graphs</span>
-                        </div>
-                        <div class="glass rounded-lg px-6 py-3">
-                            <i data-lucide="battery" class="w-6 h-6 inline-block mr-2 text-yellow-400"></i>
-                            <span>Battery Status</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -488,7 +568,7 @@
             <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
                 Interested in deploying CollarID for your research? Let's discuss how multi-modal sensing can advance your wildlife studies.
             </p>
-            <a href="mailto:patrick@patrickchwalek.com" class="inline-block glass-strong px-12 py-6 rounded-full font-semibold text-xl hover:scale-105 transition-transform glow">
+            <a href="mailto:patrickchwalek@gmail.com" class="inline-block glass-strong px-12 py-6 rounded-full font-semibold text-xl hover:scale-105 transition-transform glow">
                 <i data-lucide="mail" class="inline-block mr-3 w-6 h-6"></i>
                 Contact Us
             </a>
@@ -562,6 +642,106 @@
                 }
             });
         });
+
+        // Autoplay goat video when in view
+        const goatVideo = document.getElementById('goatVideo');
+        if (goatVideo) {
+            let userInteracted = false;
+            let isSeeking = false;
+            
+            function markUserInteraction() {
+                if (!userInteracted) {
+                    userInteracted = true;
+                }
+            }
+            
+            goatVideo.addEventListener('click', markUserInteraction);
+            goatVideo.addEventListener('mousedown', markUserInteraction);
+            goatVideo.addEventListener('touchstart', markUserInteraction);
+            goatVideo.addEventListener('seeking', function() {
+                isSeeking = true;
+                markUserInteraction();
+            });
+            goatVideo.addEventListener('seeked', function() {
+                isSeeking = false;
+            });
+            
+            const goatContainer = goatVideo.closest('.fade-in');
+            
+            if (goatContainer) {
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (userInteracted || isSeeking) {
+                            return;
+                        }
+                        if (entry.isIntersecting) {
+                            goatVideo.play().catch(function(error) {
+                                console.log('Autoplay prevented for goat video:', error);
+                            });
+                        } else {
+                            goatVideo.pause();
+                        }
+                    });
+                }, {
+                    threshold: 0.5
+                });
+                observer.observe(goatContainer);
+            }
+        }
+
+        // Autoplay FEA videos when in view
+        const feaVideo1 = document.getElementById('feaVideo1');
+        const feaVideo2 = document.getElementById('feaVideo2');
+        
+        if (feaVideo1 && feaVideo2) {
+            let userInteracted = false;
+            let isSeeking = false;
+            
+            function markUserInteraction() {
+                if (!userInteracted) {
+                    userInteracted = true;
+                }
+            }
+            
+            [feaVideo1, feaVideo2].forEach(function(video) {
+                video.addEventListener('click', markUserInteraction);
+                video.addEventListener('mousedown', markUserInteraction);
+                video.addEventListener('touchstart', markUserInteraction);
+                video.addEventListener('seeking', function() {
+                    isSeeking = true;
+                    markUserInteraction();
+                });
+                video.addEventListener('seeked', function() {
+                    isSeeking = false;
+                });
+            });
+            
+            const feaContainer = feaVideo1.closest('.fade-in');
+            
+            if (feaContainer) {
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (userInteracted || isSeeking) {
+                            return;
+                        }
+                        if (entry.isIntersecting) {
+                            feaVideo1.play().catch(function(error) {
+                                console.log('Autoplay prevented for FEA video 1:', error);
+                            });
+                            feaVideo2.play().catch(function(error) {
+                                console.log('Autoplay prevented for FEA video 2:', error);
+                            });
+                        } else {
+                            feaVideo1.pause();
+                            feaVideo2.pause();
+                        }
+                    });
+                }, {
+                    threshold: 0.3
+                });
+                observer.observe(feaContainer);
+            }
+        }
     </script>
 </body>
 </html>
