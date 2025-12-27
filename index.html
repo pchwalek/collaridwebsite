@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollarID: A New Lens on Life</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2), rgba(244, 114, 182, 0.2));
+            border-radius: 20px;
+            padding: 2px;
+        }
+        
+        .gradient-border-inner {
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 18px;
+            padding: 2rem;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .section-padding {
+            padding: 8rem 0;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .glow {
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.3);
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .dashboard-placeholder {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.2);
+        }
+        
+        .video-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-strong py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold gradient-text">CollarID</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#mission" class="hover:text-blue-400 transition-colors">Mission</a>
+                <a href="#hardware" class="hover:text-blue-400 transition-colors">Hardware</a>
+                <a href="#status" class="hover:text-blue-400 transition-colors">Status</a>
+                <a href="#dashboard" class="hover:text-blue-400 transition-colors">Dashboard</a>
+                <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+            </div>
+            <button class="md:hidden" id="mobile-menu-btn">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="media/collarid/collarid_exploded_compressed.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/80"></div>
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto fade-in">
+            <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight">
+                <span class="gradient-text">CollarID</span>
+                <br>
+                <span class="text-white">A New Lens on Life</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Moving beyond location to capture the <span class="text-blue-400 font-semibold">why</span> of wildlife behavior through multi-modal, context-aware sensing.
+            </p>
+            <a href="#hardware" class="inline-block glass-strong px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-transform glow">
+                Explore the Tech
+                <i data-lucide="arrow-down" class="inline-block ml-2 w-5 h-5"></i>
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-float">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-gray-400"></i>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="section-padding bg-gradient-to-b from-black via-gray-900 to-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                    The Mission: <span class="gradient-text">Beyond GPS</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Traditional GPS tells us <span class="text-white font-semibold">where</span> an animal goes, but leaves behavior and environmental context ambiguous. CollarID closes the data gap.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-16">
+                <div class="glass-strong rounded-2xl p-8 stat-card fade-in">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-6 glow">
+                        <i data-lucide="activity" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Holistic Insight</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Fusing location with high-fidelity bioacoustics and inertial metrics to understand the complete behavioral picture.
+                    </p>
+                </div>
+
+                <div class="glass-strong rounded-2xl p-8 stat-card fade-in">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6 glow">
+                        <i data-lucide="thermometer" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Microclimatic Context</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Recording temperature, humidity, and air pressure second-by-second to capture the environmental conditions animals experience.
+                    </p>
+                </div>
+
+                <div class="glass-strong rounded-2xl p-8 stat-card fade-in">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center mb-6 glow">
+                        <i data-lucide="wind" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Novel Air Quality Sensing</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        The first animal-borne logger to measure particulate matter (wildfire smoke and pollutants) directly from the animal's perspective.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="mt-20 grid md:grid-cols-2 gap-8">
+                <div class="glass rounded-2xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="x-circle" class="w-6 h-6 text-red-400"></i>
+                        <h3 class="text-2xl font-bold text-red-400">Location-Only Data</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="minus" class="w-5 h-5 mt-1 text-red-400"></i>
+                            <span>Limited behavioral context</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="minus" class="w-5 h-5 mt-1 text-red-400"></i>
+                            <span>Ambiguous environmental conditions</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="minus" class="w-5 h-5 mt-1 text-red-400"></i>
+                            <span>No direct health indicators</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-strong rounded-2xl p-8 fade-in gradient-border">
+                    <div class="gradient-border-inner">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>
+                            <h3 class="text-2xl font-bold text-green-400">Holistic Sensing</h3>
+                        </div>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="plus" class="w-5 h-5 mt-1 text-green-400"></i>
+                                <span>GPS + Behavioral + Environmental data</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="plus" class="w-5 h-5 mt-1 text-green-400"></i>
+                                <span>Real-time microclimatic context</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="plus" class="w-5 h-5 mt-1 text-green-400"></i>
+                                <span>Direct air quality exposure metrics</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Specs Section -->
+    <section id="hardware" class="section-padding bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Engineering Excellence</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Built for extreme durability and long-term autonomous operation in the harshest wilderness environments.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div class="fade-in">
+                    <div class="video-container">
+                        <video autoplay muted loop playsinline>
+                            <source src="media/collarid/collarid_exploded_compressed.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-3xl font-bold mb-6">Mechanical Housing</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Designed for extreme durability. Validated using Finite Element Analysis (FEA) against the <span class="text-blue-400 font-semibold">1,768 N bite force</span> of a lion.
+                    </p>
+                    <div class="glass rounded-xl p-6 mb-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i data-lucide="shield" class="w-8 h-8 text-blue-400"></i>
+                            <h4 class="text-xl font-bold">Durability Validated</h4>
+                        </div>
+                        <p class="text-gray-400">
+                            Proven waterproof and resilient through extreme environmental tests, including a dishwasher stress test. Polycarbonate top and anodized aluminum base provide optimal protection.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="glass-strong rounded-2xl p-8 stat-card fade-in">
+                    <i data-lucide="zap" class="w-12 h-12 text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Power Autonomy</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Integrated <span class="text-white font-semibold">154 mW solar harvesting</span> paired with an intelligent hibernation protocol for multi-year deployments.
+                    </p>
+                </div>
+
+                <div class="glass-strong rounded-2xl p-8 stat-card fade-in">
+                    <i data-lucide="radio" class="w-12 h-12 text-blue-400 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Communication</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Low-power, long-range <span class="text-white font-semibold">LoRaWAN telemetry</span> with planned Argos Satellite integration for true global autonomy.
+                    </p>
+                </div>
+
+                <div class="glass-strong rounded-2xl p-8 stat-card fade-in">
+                    <i data-lucide="cpu" class="w-12 h-12 text-purple-400 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Multi-Modal Sensors</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        GPS, high-fidelity bioacoustics, IMU, temperature, humidity, pressure, and <span class="text-white font-semibold">particulate matter</span> sensing.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FEA Videos -->
+            <div class="mt-16 fade-in">
+                <h3 class="text-3xl font-bold mb-8 text-center">Finite Element Analysis</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="video-container">
+                        <video controls muted playsinline loop>
+                            <source src="media/collarid/top_mid_bite_2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-container">
+                        <video controls muted playsinline loop>
+                            <source src="media/collarid/lateral_mid_bite.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <p class="text-center text-gray-400 mt-6 max-w-3xl mx-auto">
+                    FEA simulations validate structural integrity against extreme forces, ensuring the device can withstand the physical demands of tracking wild animals like lions and hyenas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Status Section -->
+    <section id="status" class="section-padding bg-gradient-to-b from-black via-gray-900 to-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">The Mk II Frontier</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Evaluating the Mk II for 2026 field deployments
+                </p>
+            </div>
+
+            <div class="glass-strong rounded-3xl p-12 max-w-4xl mx-auto fade-in">
+                <div class="mb-8">
+                    <h3 class="text-3xl font-bold mb-6">Current Project Scope</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed mb-8">
+                        We are currently in the final stages of evaluating the CollarID Mk II design. This version optimizes the multi-modal sensor suite and prepares the platform for large-scale field deployments.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0 glow">
+                            <i data-lucide="check" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Now: Performance Characterization</h4>
+                            <p class="text-gray-400">
+                                Comprehensive validation and optimization of sensor accuracy, power efficiency, and communication reliability.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 glow">
+                            <i data-lucide="calendar" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Early 2026: Field Deployments</h4>
+                            <p class="text-gray-400">
+                                Deployments with the <span class="text-white font-semibold">Modisa Wildlife Project</span> and <span class="text-white font-semibold">National Geographic Explorers</span> to investigate behavioral drivers in target species like lions and hyenas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deployment Images -->
+            <div class="mt-16 grid md:grid-cols-2 gap-8">
+                <div class="glass rounded-2xl overflow-hidden fade-in">
+                    <img src="media/collarid/collarid_buena_cabra_deployment.png" alt="CollarID deployment on goats" class="w-full h-auto">
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">Goat Deployment - Chile</h4>
+                        <p class="text-gray-400">Field testing in diverse environments</p>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl overflow-hidden fade-in">
+                    <img src="media/collarid/mayra.jpg" alt="CollarID deployment on cattle" class="w-full h-auto">
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">Cattle Deployment</h4>
+                        <p class="text-gray-400">Real-world validation of sensor performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section-padding bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">Real-Time Data Visualization</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Interactive dashboard for monitoring GPS tracks, sensor data, and environmental metrics
+                </p>
+            </div>
+
+            <div class="dashboard-placeholder fade-in">
+                <div class="relative z-10 text-center">
+                    <i data-lucide="layout-dashboard" class="w-24 h-24 mx-auto mb-6 text-blue-400"></i>
+                    <h3 class="text-3xl font-bold mb-4">CollarID Web Dashboard</h3>
+                    <p class="text-gray-400 text-lg mb-6 max-w-2xl mx-auto">
+                        Interactive maps, battery status, and time-series plots for environmental sensors like PM2.5 and temperature.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 mt-8">
+                        <div class="glass rounded-lg px-6 py-3">
+                            <i data-lucide="map" class="w-6 h-6 inline-block mr-2 text-blue-400"></i>
+                            <span>GPS Tracking</span>
+                        </div>
+                        <div class="glass rounded-lg px-6 py-3">
+                            <i data-lucide="activity" class="w-6 h-6 inline-block mr-2 text-green-400"></i>
+                            <span>Sensor Graphs</span>
+                        </div>
+                        <div class="glass rounded-lg px-6 py-3">
+                            <i data-lucide="battery" class="w-6 h-6 inline-block mr-2 text-yellow-400"></i>
+                            <span>Battery Status</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-gradient-to-b from-black via-gray-900 to-black">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-in">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Get in Touch</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                Interested in deploying CollarID for your research? Let's discuss how multi-modal sensing can advance your wildlife studies.
+            </p>
+            <a href="mailto:patrick@patrickchwalek.com" class="inline-block glass-strong px-12 py-6 rounded-full font-semibold text-xl hover:scale-105 transition-transform glow">
+                <i data-lucide="mail" class="inline-block mr-3 w-6 h-6"></i>
+                Contact Us
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 CollarID. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade in animations
+        gsap.utils.toArray('.fade-in').forEach((element) => {
+            gsap.fromTo(element, 
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+
+        // Parallax effect for hero video
+        gsap.to('.hero-video', {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero-video',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                // Add mobile menu functionality if needed
+                alert('Mobile menu - add navigation links here');
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
