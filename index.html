@@ -155,15 +155,26 @@
         /* FFT Image Styling for Better Visibility */
         .fft-image {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
+            padding: 0.5rem;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .fft-image {
+                padding: 0.25rem;
+            }
         }
         
         .fft-image img {
             filter: brightness(1.1) contrast(1.1);
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
+            display: block;
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -413,9 +424,9 @@
                 <!-- Cow Mooing and Bird Chirping -->
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">Cow Mooing and Bird Chirping</h3>
-                    <div class="glass rounded-2xl p-6 mb-4">
+                    <div class="glass rounded-2xl p-4 md:p-6 mb-4">
                         <div class="fft-image mb-4">
-                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cowmooing_birdchirping_fft.png" alt="STFT spectrogram of cow mooing and bird chirping" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cowmooing_birdchirping_fft.png" alt="STFT spectrogram of cow mooing and bird chirping" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl">
                         </div>
                         <audio controls class="w-full max-w-4xl mx-auto">
                             <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cowmooing_birdchirping.wav" type="audio/wav">
@@ -427,9 +438,9 @@
                 <!-- Cow Bawling -->
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">Cow Bawling</h3>
-                    <div class="glass rounded-2xl p-6 mb-4">
+                    <div class="glass rounded-2xl p-4 md:p-6 mb-4">
                         <div class="fft-image mb-4">
-                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_bawling_fft.png" alt="STFT spectrogram of cow bawling" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_bawling_fft.png" alt="STFT spectrogram of cow bawling" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl">
                         </div>
                         <audio controls class="w-full max-w-4xl mx-auto">
                             <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_bawling.wav" type="audio/wav">
@@ -441,9 +452,9 @@
                 <!-- Cow Walking -->
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">Cow Walking</h3>
-                    <div class="glass rounded-2xl p-6 mb-4">
+                    <div class="glass rounded-2xl p-4 md:p-6 mb-4">
                         <div class="fft-image mb-4">
-                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_walking_fft.png" alt="STFT spectrogram of cow walking" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_walking_fft.png" alt="STFT spectrogram of cow walking" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl">
                         </div>
                         <audio controls class="w-full max-w-4xl mx-auto">
                             <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_cow_walking.wav" type="audio/wav">
@@ -455,9 +466,9 @@
                 <!-- All-Terrain Vehicle -->
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">All-Terrain Vehicle</h3>
-                    <div class="glass rounded-2xl p-6 mb-4">
+                    <div class="glass rounded-2xl p-4 md:p-6 mb-4">
                         <div class="fft-image mb-4">
-                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_allterrainvehicle_fft.png" alt="STFT spectrogram of all-terrain vehicle" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_allterrainvehicle_fft.png" alt="STFT spectrogram of all-terrain vehicle" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl">
                         </div>
                         <audio controls class="w-full max-w-4xl mx-auto">
                             <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_allterrainvehicle.wav" type="audio/wav">
@@ -469,9 +480,9 @@
                 <!-- Plane -->
                 <div class="fade-in">
                     <h3 class="text-2xl font-bold mb-6">Plane</h3>
-                    <div class="glass rounded-2xl p-6 mb-4">
+                    <div class="glass rounded-2xl p-4 md:p-6 mb-4">
                         <div class="fft-image mb-4">
-                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_plane_fft.png" alt="STFT spectrogram of plane" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl" style="min-height: 400px; object-fit: contain;">
+                            <img src="https://www.patrickchwalek.com/media/collarid/recording_collarid_plane_fft.png" alt="STFT spectrogram of plane" class="w-full max-w-6xl mx-auto h-auto rounded-lg shadow-2xl">
                         </div>
                         <audio controls class="w-full max-w-4xl mx-auto">
                             <source src="https://www.patrickchwalek.com/media/collarid/recording_collarid_plane.wav" type="audio/wav">
